@@ -20,7 +20,7 @@
     },
     {
       "id": 3,
-      "topping": "Mushroom",
+      "topping": "Mushrooms",
       "size": "Small",
       "vegetarian": true,
       "newPizza": {

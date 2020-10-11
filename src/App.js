@@ -32,7 +32,9 @@ class App extends Component {
       let newArray = this.state.pizzas
       newArray[idx] = pizza
       this.setState({pizzas: newArray})
-    })
+    }
+    )
+    
   }
 
   componentDidMount = () => {

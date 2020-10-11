@@ -29,19 +29,29 @@ class PizzaForm extends React.Component{
   handleChange = (e) => {
     this.setState({[e.target.name]: e.target.value})
   }
+
+  submitHandler = (e, pizza) => {
+    this.props.submitPizza(e, pizza)
+    this.setState({
+      id: "",
+      topping: "",
+      vegetarian: "",
+      size: ""
+    })
+  }
   render(){
   return(
   
-    <form onSubmit={(e) => this.props.submitPizza(e, this.state)}>   
+    <form onSubmit={(e) => this.submitHandler(e, this.state)}>   
     {console.log(this.state)}
       <div className="form-row">
         <div className="col-5">
-            <input type="text" className="form-control" name="topping" placeholder="Pizza Topping" defaultValue={
+            <input type="text" className="form-control" name="topping" placeholder="Pizza Topping" value={
                 this.state.topping
               } onChange={this.handleChange}/>
         </div>
         <div className="col">
-          <select defaultValue={this.state.size} name="size" className="form-control" onChange={this.handleChange}>
+          <select value={this.state.size} name="size" className="form-control" onChange={this.handleChange}>
             <option value="Small">Small</option>
             <option value="Medium">Medium</option>
             <option value="Large">Large</option>

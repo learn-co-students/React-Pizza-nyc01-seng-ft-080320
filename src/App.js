@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import Header from './components/Header';
 import PizzaForm from './components/PizzaForm';
 import PizzaList from './containers/PizzaList';
+import Search from './components/Search'
 class App extends Component {
 	state = {
 		api: [],
@@ -9,7 +10,8 @@ class App extends Component {
             topping: "",
             size: "",
             vegetarian: null
-        }
+        },
+        searchTerm: ""
 	};
 
 	componentDidMount = () => {
@@ -112,12 +114,16 @@ class App extends Component {
 			});
 	};
 
-
+    searchChangeHandler = e => {
+        this.setState({searchTerm: e.target.value})
+    }
 
 	render() {
+        console.log(this.state.searchTerm)
 		return (
 			<Fragment>
 				<Header />
+                <Search changeHandler={this.searchChangeHandler} searchTerm={this.state.searchTerm}/>
 				<PizzaForm
 					editChangeHandler={this.editChangeHandler}
 					submitHandler={this.formSubmitHandler}
@@ -126,7 +132,7 @@ class App extends Component {
 					// toppingChangeHandler={this.toppingChangeHandler}
 					pizza={this.state.pizzaToEdit}
 				/>
-				<PizzaList clickHandler={this.editPizzaClickHandler} pizzas={this.state.api} />
+				<PizzaList searchTerm={this.state.searchTerm}clickHandler={this.editPizzaClickHandler} pizzas={this.state.api} />
 			</Fragment>
 		);
 	}

@@ -3,7 +3,6 @@ import React from 'react';
 class PizzaForm extends React.Component {
  
 	render() {
-        console.log(this.props.pizza)
 		return (
 			<div className="form-row">
 				<div className="col-5">

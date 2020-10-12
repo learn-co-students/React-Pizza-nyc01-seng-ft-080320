@@ -87,11 +87,6 @@ class App extends Component {
                 pizzaToEdit: {}
             })
         })
-
-
-        //patch request to this object in db
-        //send back changedObj
-        //find old obj in api and swap with this newly edited pizza obj, reset pizzatoedit as {}
     }
 
   render() {

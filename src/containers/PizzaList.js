@@ -26,7 +26,6 @@ class PizzaList extends Component {
       </table>
     );
   }
-
 }
 
 export default PizzaList;

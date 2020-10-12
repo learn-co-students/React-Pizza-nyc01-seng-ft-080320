@@ -37,10 +37,12 @@ class App extends Component {
   }
 
   changePizzaVegetarian = (e) => {
-    if (e === "false") {
-      this.setState({ vegetarian: false })
-    } else {
-      this.setState({ vegetarian: true })
+    switch (e) {
+      case "false":
+        this.setState({ vegetarian: false })
+      case "true":
+        this.setState({ vegetarian: true })
+      break;
     }
   }
 

@@ -7,10 +7,10 @@ class App extends Component {
 
   state = {
     pizzas: [],
-    topping: null,
-    size: null,
-    vegetarian: null,
-    pizzaId: null
+    topping: '',
+    size: '',
+    vegetarian: '',
+    pizzaId: ''
   }
 
   componentDidMount() {
@@ -25,35 +25,47 @@ class App extends Component {
       size: pizza.size,
       vegetarian: pizza.vegetarian,
       pizzaId: pizza.id
-    })
+    }) 
   }
 
   changePizzaTopping = (e) => {
-    this.setState({ topping: e.target.value })
+    this.setState({ topping: e })
   }
 
   changePizzaSize = (e) => {
-    this.setState({ size: e.target.value })
+    this.setState({ size: e })
   }
 
   changePizzaVegetarian = (e) => {
-    this.setState({ vegetarian: e.target.value })
+    if (e === "false") {
+      this.setState({ vegetarian: false })
+    } else {
+      this.setState({ vegetarian: true })
+    }
   }
 
-  // submitPizza = (e) => {
-  //   e.preventDefault();
-  //   fetch('http://localhost:3000/pizzas/' + `${this.state.pizzaId}`,
-  //     method: "PATCH",
-  //     headers: {
-  //     "Content-type": "application/json",
-  //       "Accepts": "application/json"
-  //     }
-  //     body: JSON.stringify({
-  //       topping: this.state.topping,
-  //       size: this.state.size,
-  //       vegetarian: this.state.vegetarian
-  //     }))
-  // }
+  submitPizza = (e) => {
+    fetch(`http://localhost:3000/pizzas/${this.state.pizzaId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-type": "application/json",
+        "Accepts": "application/json"
+      },
+      body: JSON.stringify({
+        topping: this.state.topping,
+        size: this.state.size,
+        vegetarian: this.state.vegetarian
+      })
+    })
+    .then(resp => resp.json())
+    .then(data => this.componentDidMount())
+    .then(this.setState({
+        topping: '',
+        size: '',
+        vegetarian: '',
+        pizzaId: ''
+    }))
+  }
 
   render() {
     return (

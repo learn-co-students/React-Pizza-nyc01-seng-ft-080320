@@ -2,13 +2,25 @@ import React from "react"
 
 const PizzaForm = (props) => {
 
+  function changePizzaTopping(e) {
+    props.changePizzaTopping(e.target.value)
+  }
+
+  function changePizzaSize(e) {
+    props.changePizzaSize(e.target.value)
+  }
+
+  function changePizzaVegetarian(e) {
+    props.changePizzaVegetarian(e.target.value)
+  }
+
   return(
       <div className="form-row">
         <div className="col-5">
-        <input type="text" className="form-control" placeholder="Pizza Topping" value={props.topping} onChange={() => { props.changePizzaTopping() }}/>
+        <input type="text" className="form-control" placeholder="Pizza Topping" value={props.topping} onChange={changePizzaTopping}/>
         </div>
         <div className="col">
-          <select value={props.size} className="form-control">
+        <select value={props.size} onChange={changePizzaSize} className="form-control">
             <option value="Small">Small</option>
             <option value="Medium">Medium</option>
             <option value="Large">Large</option>
@@ -16,13 +28,13 @@ const PizzaForm = (props) => {
         </div>
         <div className="col">
           <div className="form-check">
-          <input className="form-check-input" type="radio" value={true} checked={(props.vegetarian ? true : false)} onChange={() => { props.changePizzaVegetarian() }}/>
+          <input className="form-check-input" name="veg" type="radio" value={true} checked={(props.vegetarian ? true : false)} onChange={changePizzaVegetarian}/>
             <label className="form-check-label">
               Vegetarian
             </label>
           </div>
           <div className="form-check">
-          <input className="form-check-input" type="radio" value={false} checked={(props.vegetarian ? false : true)} onChange={() => {props.changePizzaVegetarian()}}/>
+          <input className="form-check-input" type="radio" value={false} checked={(props.vegetarian ? false : true)} onChange={changePizzaVegetarian}/>
             <label className="form-check-label">
               Not Vegetarian
             </label>

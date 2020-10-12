@@ -41,7 +41,7 @@ const PizzaForm = (props) => {
           </div>
         </div>
         <div className="col">
-        <button type="submit" className="btn btn-success" onClick={() => { props.submitPizza() } }>Submit</button>
+        <button type="submit" className="btn btn-success" onClick={() => { props.submitPizza() }}>Submit</button>
         </div>
       </div>
   )

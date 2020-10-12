@@ -40,9 +40,10 @@ class App extends Component {
     switch (e) {
       case "false":
         this.setState({ vegetarian: false })
+        break
       case "true":
         this.setState({ vegetarian: true })
-      break;
+        break;
     }
   }
 

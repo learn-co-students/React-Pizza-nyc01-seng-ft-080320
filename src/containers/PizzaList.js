@@ -22,7 +22,6 @@ class PizzaList extends Component {
         <tbody>
           {
               this.renderPizzas()
-            //render Pizza here
           }
         </tbody>
       </table>

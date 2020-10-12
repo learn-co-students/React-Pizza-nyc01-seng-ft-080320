@@ -44,6 +44,8 @@ class App extends Component {
       case "true":
         this.setState({ vegetarian: true })
         break;
+      default:
+        console.log("Something didn't catch in the switch.")
     }
   }
 

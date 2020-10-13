@@ -2,16 +2,77 @@ import React, { Component, Fragment } from 'react';
 import Header from './components/Header'
 import PizzaForm from './components/PizzaForm'
 import PizzaList from './containers/PizzaList'
+
+// var _ = require('lodash');
+
+const APIURL = 'http://localhost:3000/pizzas'
+
 class App extends Component {
+
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+       api:[],
+       editPizza:{
+        vegetarian: false,
+        notVegetarian: false,
+        size:'',
+        topping:'',
+        }
+       }
+  }
+
+  handleClick = (event) => {
+    if(event.target.name === "topping"){
+      return this.setState({topping: event.target.value})
+    }
+    
+    console.log(event.target.value)
+    switch (event.target.value) {
+      case "Vegetarian":
+        this.setState({
+          editPizza:{vegetarian: true,notVegetarian: false,
+          }
+        })
+        break;
+      case "Not Vegetarian":
+        this.setState({
+          editPizza:{vegetarian: false,notVegetarian: true,}
+        })
+        break;
+      case "Small":
+      case "Medium":
+      case "Large":
+        this.setState({size: event.target.value})
+        break;
+      case "topping":
+        this.setState({topping: event.target.value})
+        break
+      default:
+        break;
+    }
+  }
+  
+
   render() {
+    console.log(this.state)
     return (
       <Fragment>
         <Header/>
-        <PizzaForm/>
-        <PizzaList/>
+        <PizzaForm handleClick={this.handleClick}/>
+        <PizzaList pizzas={this.state.api}/>
       </Fragment>
     );
   }
+
+  componentDidMount() {
+    fetch(APIURL)
+      .then(res => res.json())
+      .then((api) => this.setState({api}))
+  }
+  
+
 }
 
 export default App;

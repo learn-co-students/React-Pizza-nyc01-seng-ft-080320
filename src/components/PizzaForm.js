@@ -1,30 +1,66 @@
-import React from "react"
+import React, { Component } from 'react'
 
-const PizzaForm = () => {
-  return(
+export default class PizzaForm extends Component {
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+      vegetarian: false,
+      notVegetarian: false,
+      // size:'',
+      // topping:'',
+    }
+  }
+
+  // handleClick = (event) => {
+  //   if(event.target.name === "topping"){
+  //     return this.setState({topping: event.target.value})
+  //   }
+
+  //   console.log(event.target.value)
+  //   switch (event.target.value) {
+  //     case "Vegetarian":
+  //       this.setState({vegetarian: true,notVegetarian: false,})
+  //       break;
+  //     case "Not Vegetarian":
+  //       this.setState({vegetarian: false,notVegetarian: true,})
+  //       break;
+  //     case "Small":
+  //     case "Medium":
+  //     case "Large":
+  //       this.setState({size: event.target.value})
+  //       break;
+  //     case "topping":
+  //       this.setState({topping: event.target.value})
+  //       break
+  //     default:
+  //       break;
+  //   }
+  // }
+
+  render() {
+    // console.log(this.state)
+    return(
       <div className="form-row">
         <div className="col-5">
-            <input type="text" className="form-control" placeholder="Pizza Topping" value={
-                //Pizza Topping Should Go Here
-                null
-              }/>
+            <input type="text" className="form-control" placeholder="Pizza Topping" onChange={this.props.handleClick} name="topping" value={this.state.topping}/>
         </div>
         <div className="col">
-          <select value={null} className="form-control">
+          <select value={null} className="form-control" onChange={this.props.handleClick}>
             <option value="Small">Small</option>
             <option value="Medium">Medium</option>
             <option value="Large">Large</option>
           </select>
         </div>
-        <div className="col">
+        <div className="col" onChange={this.props.handleClick}>
           <div className="form-check">
-            <input className="form-check-input" type="radio" value="Vegetarian" checked={null}/>
+            <input className="form-check-input" type="radio" value="Vegetarian" checked={this.state.vegetarian}/>
             <label className="form-check-label">
               Vegetarian
             </label>
           </div>
           <div className="form-check">
-            <input className="form-check-input" type="radio" value="Not Vegetarian" checked={null}/>
+            <input className="form-check-input" type="radio" value="Not Vegetarian" checked={this.state.notVegetarian}/>
             <label className="form-check-label">
               Not Vegetarian
             </label>
@@ -36,6 +72,8 @@ const PizzaForm = () => {
       </div>
 
   )
+  }
 }
 
-export default PizzaForm
+
+

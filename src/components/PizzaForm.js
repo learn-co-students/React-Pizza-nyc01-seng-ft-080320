@@ -2,6 +2,13 @@ import React from "react"
 
 class PizzaForm extends React.Component {
 
+  emptyState = {
+    id: "",
+    topping: "",
+    size: "",
+    vegetarian: ""
+  }
+
   state={
     id: "",
     topping: "",
@@ -11,6 +18,7 @@ class PizzaForm extends React.Component {
 
   submitPizzaEditForm = (e) => {
     this.props.submitPizzaEditForm(this.state)
+    this.setState({...this.emptyState})
   }
 
   changeHandler = (e) => {

@@ -3,9 +3,7 @@ import Header from './components/Header'
 import PizzaForm from './components/PizzaForm'
 import PizzaList from './containers/PizzaList'
 
-// var clonedeep = require('lodash.clonedeep');
-
-const APIURL = 'http://localhost:3000/pizzas'
+const APIURL = 'http://localhost:3000/pizzas/'
 
 class App extends Component {
 
@@ -19,18 +17,38 @@ class App extends Component {
         notVegetarian: false,
         size:'',
         topping:'',
-        }
-       }
+        id:'',
+      }
+    }
   }
 
   handleClick = (event) => {
-    if(event.target.name === "topping"){
-      return this.setState({topping: event.target.value})
+    if(event.target.type === 'submit'){
+      this.updatePizza()
     }
 
-    // clone = clonedeep()
-    
-    // console.log(event.target.value)
+    switch (event.target.name) {
+      case "topping":
+        this.setState({
+          editPizza:{
+            ...this.state.editPizza,
+            topping: event.target.value,
+          }
+        })
+        break;
+      case "editBtn":
+        this.setState({
+          editPizza:{
+            ...this.state.editPizza,
+            id: event.target.value
+          }
+        })
+        break;
+      default:
+        break;
+    }
+
+
     switch (event.target.value) {
       case "Vegetarian":
         this.setState({
@@ -50,38 +68,59 @@ class App extends Component {
           }
         })
         break;
-      case "Small":
-      case "Medium":
-      case "Large":
+      case "Small": case "Medium": case "Large":
         this.setState({      
-          
-          
+          editPizza:{
+            ...this.state.editPizza,
+            size: event.target.value
+          }
         })
         break;
-      case "topping":
-        this.setState({topping: event.target.value})
-        break
+      case "":
       default:
         break;
     }
   }
   
-
   render() {
-    console.log(this.state)
     return (
       <Fragment>
         <Header/>
         <PizzaForm 
           handleClick={this.handleClick}
           editPizza={this.state.editPizza}
-          vegetarian={this.state.vegetarian}
-          notVegetarian={this.state.notVegetarian}
         />
-        <PizzaList pizzas={this.state.api}/>
+        <PizzaList pizzas={this.state.api} handleClick={this.handleClick}/>
       </Fragment>
     );
   }
+
+  updatePizza = () => {
+    const newData = this.state.editPizza
+    const options = {
+      method: "PUT",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newData)
+    }
+
+    fetch((APIURL + newData.id), options)
+      .then(res => res.json())
+      .then(data => this.updateAPI(data))
+  }  
+  
+  updateAPI = (data) => {
+    let apiData = this.state.api
+    let info = apiData.findIndex((pizza) => pizza.id === data.id)
+    
+    apiData.splice(info, 1, data)
+    
+    this.setState({
+      api: apiData
+    })
+  }
+  
 
   componentDidMount() {
     fetch(APIURL)

@@ -1,16 +1,6 @@
 import React, { Component } from 'react'
 
 export default class PizzaForm extends Component {
-  constructor(props) {
-    super(props)
-  
-    this.state = {
-      vegetarian: false,
-      notVegetarian: false,
-      // size:'',
-      // topping:'',
-    }
-  }
 
   // handleClick = (event) => {
   //   if(event.target.name === "topping"){
@@ -39,11 +29,12 @@ export default class PizzaForm extends Component {
   // }
 
   render() {
-    // console.log(this.state)
+    const {vegetarian, notVegetarian, size, topping} = this.props.editPizza
+
     return(
       <div className="form-row">
         <div className="col-5">
-            <input type="text" className="form-control" placeholder="Pizza Topping" onChange={this.props.handleClick} name="topping" value={this.state.topping}/>
+            <input type="text" className="form-control" placeholder="Pizza Topping" onChange={this.props.handleClick} name="topping" value={topping}/>
         </div>
         <div className="col">
           <select value={null} className="form-control" onChange={this.props.handleClick}>
@@ -54,13 +45,13 @@ export default class PizzaForm extends Component {
         </div>
         <div className="col" onChange={this.props.handleClick}>
           <div className="form-check">
-            <input className="form-check-input" type="radio" value="Vegetarian" checked={this.state.vegetarian}/>
+            <input className="form-check-input" type="radio" value="Vegetarian" checked={vegetarian}/>
             <label className="form-check-label">
               Vegetarian
             </label>
           </div>
           <div className="form-check">
-            <input className="form-check-input" type="radio" value="Not Vegetarian" checked={this.state.notVegetarian}/>
+            <input className="form-check-input" type="radio" value="Not Vegetarian" checked={notVegetarian}/>
             <label className="form-check-label">
               Not Vegetarian
             </label>
@@ -73,6 +64,7 @@ export default class PizzaForm extends Component {
 
   )
   }
+  
 }
 
 

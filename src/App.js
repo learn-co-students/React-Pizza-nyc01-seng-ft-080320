@@ -3,7 +3,7 @@ import Header from './components/Header'
 import PizzaForm from './components/PizzaForm'
 import PizzaList from './containers/PizzaList'
 
-// var _ = require('lodash');
+// var clonedeep = require('lodash.clonedeep');
 
 const APIURL = 'http://localhost:3000/pizzas'
 
@@ -27,24 +27,36 @@ class App extends Component {
     if(event.target.name === "topping"){
       return this.setState({topping: event.target.value})
     }
+
+    // clone = clonedeep()
     
-    console.log(event.target.value)
+    // console.log(event.target.value)
     switch (event.target.value) {
       case "Vegetarian":
         this.setState({
-          editPizza:{vegetarian: true,notVegetarian: false,
+          editPizza:{
+            ...this.state.editPizza,
+            vegetarian: true,
+            notVegetarian: false, 
           }
         })
         break;
       case "Not Vegetarian":
         this.setState({
-          editPizza:{vegetarian: false,notVegetarian: true,}
+          editPizza:{
+            ...this.state.editPizza,
+            vegetarian: false,
+            notVegetarian: true,
+          }
         })
         break;
       case "Small":
       case "Medium":
       case "Large":
-        this.setState({size: event.target.value})
+        this.setState({      
+          
+          
+        })
         break;
       case "topping":
         this.setState({topping: event.target.value})
@@ -60,7 +72,12 @@ class App extends Component {
     return (
       <Fragment>
         <Header/>
-        <PizzaForm handleClick={this.handleClick}/>
+        <PizzaForm 
+          handleClick={this.handleClick}
+          editPizza={this.state.editPizza}
+          vegetarian={this.state.vegetarian}
+          notVegetarian={this.state.notVegetarian}
+        />
         <PizzaList pizzas={this.state.api}/>
       </Fragment>
     );
@@ -71,7 +88,6 @@ class App extends Component {
       .then(res => res.json())
       .then((api) => this.setState({api}))
   }
-  
 
 }
 

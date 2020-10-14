@@ -2,7 +2,14 @@ import React, { Component } from 'react';
 import Pizza from '../components/Pizza'
 class PizzaList extends Component {
 
+
+renderPizzas = () =>{
+  let pizzaArray = this.props.pizzas
+  return pizzaArray.map((pizza, index) => <Pizza key={index} {...pizza} formFiller={this.props.formFiller}/>)
+}
+
   render() {
+   
     return (
       <table className="table table-striped">
         <thead>
@@ -13,11 +20,12 @@ class PizzaList extends Component {
             <th scope="col">Edit</th>
           </tr>
         </thead>
-        <tbody>
-          {
-            //render Pizza here
+       
+          {this.props.pizzas.length >0?  <tbody>
+           {this.renderPizzas()}</tbody> :
+           <h2> Loading Pizzas</h2>
           }
-        </tbody>
+        
       </table>
     );
   }

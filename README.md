@@ -20,3 +20,19 @@ Each row in the table should be a pizza component and when you click the "Edit" 
 The pizza form will then render the information about the pizza in the form, which will be editable.
 
 When the form is submitted, the information should be reflected in your table and persist in the backend.
+
+
+
+app
+|
+|-Header
+|
+|
+|-PizzaForm
+|
+|
+|-PizzaList- Pizza
+|
+|
+|
+|
